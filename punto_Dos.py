@@ -1,22 +1,23 @@
 import random
 
-#definimos el diccionario
-departamentos=[]
+departamentos = []
 
 def agregar_departamento(nombre, capital):
-    departamento={
+    departamento = {
         "nombre": nombre,
         "capital": capital
     }
     departamentos.append(departamento)
-    
-def mostrar_departamentos():
-    for departamento in departamentos:
-        print(f"Departamento: {departamento['nombre'].upper()}")
-        print(f"Capital: {departamento['capital'].upper()}")        
-        print("-"*40)
-        
-        
+
+def consultar_departamentos():
+    if not departamentos:
+        print("No hay departamentos registrados.")
+    else:
+        for departamento in departamentos:
+            print(f"Departamento: {departamento['nombre']}")
+            print(f"Capital: {departamento['capital']}")
+            print("-" * 40)
+
 def jugar():
     if not departamentos:
         print("No hay departamentos registrados para jugar.")
@@ -41,44 +42,35 @@ def jugar():
 
     print(f"¡Lo lograste en {intentos} intentos!")
 
-        
-
-
-while True:
-        print("="*40)
+def menu():
+    while True:
+        print("=" * 40)
         print("Menu:")
-        print("1. Agregar Departamento:")
-        print("2. Consultar Departamentos:")
-        print("3. Jugar:")
-        print("4. Salir:")
-        print("="*40)
-        
-        opcion = input("Seleccione una opción: ").upper()
-        
-        if opcion=="1":
-            nombre= input("Ingrese El Departamento: ").upper()
-            capital= input("Ingrese La Capital Del Departamento: ").upper()
+        print("1. Agregar Departamento")
+        print("2. Consultar Departamentos")
+        print("3. Jugar")
+        print("4. Salir")
+        print("=" * 40)
 
-            agregar_departamento(nombre,capital)
-        
-        if opcion=="2":
-            if departamentos:
-                print("Lista De Departamentos: ")
-                print("-"*40)
-                mostrar_departamentos()
-            else:
-                print("No Hay Departamentos Registrados")
-        
-        if opcion=="3":
+        try:
+            opcion = int(input("Seleccione una opción: "))
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
+            continue
+
+        if opcion == 1:
+            nombre = input("Ingrese el nombre del departamento: ").capitalize()
+            capital = input("Ingrese la capital del departamento: ").capitalize()
+
+            agregar_departamento(nombre, capital)
+        elif opcion == 2:
+            consultar_departamentos()
+        elif opcion == 3:
             jugar()
-
-            
-        elif opcion == "4" or opcion.upper() == "SALIR":
-            print("Gracias Por Usar El Sistema")
-            break   
-
+        elif opcion == 4:
+            print("Gracias por usar el sistema. ¡Hasta luego!")
+            break
         else:
-            print("Opcion Invalida")
-            
-        
-        
+            print("Opción inválida. Por favor, seleccione una opción válida.")
+
+menu()
